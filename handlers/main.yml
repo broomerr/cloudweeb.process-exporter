@@ -1,0 +1,7 @@
+---
+
+- name: restart process_exporter
+  systemd:
+    name: process_exporter
+    state: restarted
+    daemon_reload: true

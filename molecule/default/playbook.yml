@@ -1,0 +1,17 @@
+---
+- name: Converge
+  hosts: all
+
+  vars:
+
+    process_exporter_process_names:
+      - comm:
+        - bash
+      - name: "{% raw %}{{ .ExeFull }}:{{ .Matches.Cfgfile }}{% endraw %}"
+        exe:
+        - /usr/bin/process-exporter
+        cmdline:
+        - -config.path\\s+(?P<Cfgfile>\\S+)
+
+  roles:
+    - role: cloudweeb.process-exporter

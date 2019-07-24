@@ -1,0 +1,16 @@
+[Unit]
+Description=Prometheus Process Exporter
+After=network.target
+
+[Service]
+Type=simple
+User=root
+Group=root
+ExecStart=/usr/local/bin/process_exporter \
+    -web.listen-address={{ process_exporter_web_listen_address }} -config.path={{ process_exporter_config_file }}
+
+SyslogIdentifier=process_exporter
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

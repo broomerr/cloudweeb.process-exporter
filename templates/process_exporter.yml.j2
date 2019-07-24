@@ -1,0 +1,4 @@
+{{ ansible_managed | comment }}
+
+process_names:
+  {{ process_exporter_process_names | to_nice_yaml(indent=2) | indent(2, False) }}
