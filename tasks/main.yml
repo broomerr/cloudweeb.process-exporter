@@ -33,6 +33,7 @@
     group: root
     mode: 0644
   notify: restart process_exporter
+  when: ansible_service_mgr == "systemd"
 
 - name: Start & enable Process Exporter
   systemd:
