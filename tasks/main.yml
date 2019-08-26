@@ -16,7 +16,7 @@
 - name: Propagate process_exporter binary
   copy:
     src: "/tmp/process-exporter-{{ process_exporter_version }}.linux-amd64/process-exporter"
-    dest: "/usr/local/bin/process_exporter"
+    dest: "{{process_exporter_config_dir}}/process_exporter"
     mode: 0750
 
 - name: Configure process_exporter

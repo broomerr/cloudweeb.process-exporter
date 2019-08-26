@@ -4,7 +4,8 @@
 process_exporter_version: 0.5.0
 
 # process_exporter config file path
-process_exporter_config_file: /etc/process_exporter.yml
+process_exporter_config_dir: /opt/process_exporter
+process_exporter_config_file: "{{process_exporter_config_dir}}/process_exporter.yml"
 
 # process_exporter listen address
 process_exporter_web_listen_address: 0.0.0.0:9256
