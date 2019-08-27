@@ -1,5 +1,5 @@
 ---
-
+# We want to download on Controler host
 - name: Download process_exporter binary
   get_url:
     url: "https://github.com/ncabatoff/process-exporter/releases/download/v{{ process_exporter_version }}/process-exporter-{{ process_exporter_version }}.linux-amd64.tar.gz"
@@ -33,11 +33,28 @@
     group: root
     mode: 0644
   notify: restart process_exporter
-  when: ansible_service_mgr == "systemd"
 
-- name: Start & enable Process Exporter
+- name: "Start & enable Process Exporter"
   systemd:
     name: process_exporter
     state: started
     enabled: true
     daemon_reload: true
+  when: ansible_service_mgr == "systemd"
+
+- name: Copy the Process Exporter init.d start script
+  template:
+    src: process_exporter.init.d.j2
+    dest: /etc/init.d/process_exporter
+    owner: root
+    group: root
+    mode: 0644
+  notify: restart process_exporter
+  when: ansible_service_mgr == "init"
+
+- name: make sure process_exporter is started
+  service:
+    # must support all  init systems including SysV and systemd
+      name: process_exporter
+      state: started
+      enabled: yes
