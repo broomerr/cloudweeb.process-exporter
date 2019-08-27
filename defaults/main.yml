@@ -30,4 +30,10 @@ process_exporter_web_listen_address: 0.0.0.0:9256
 #   - /usr/local/bin/process-exporter
 #   cmdline:
 #   - -config.path\s+(?P<Cfgfile>\S+)
-process_exporter_process_names: []
+# process_exporter_process_names: []
+process_exporter_process_names: |
+  {% raw %}
+    - name: "{{.Comm}}"
+      cmdline:
+        - '.+'
+  {% endraw %}
