@@ -5,6 +5,7 @@ process_exporter_version: 0.5.0
 
 # process_exporter config file path
 process_exporter_config_dir: /opt/process_exporter
+#process_exporter_config_dir: /tmp/process_exporter
 process_exporter_config_file: "{{process_exporter_config_dir}}/process_exporter.yml"
 
 # process_exporter listen address
@@ -37,3 +38,9 @@ process_exporter_process_names: |
       cmdline:
         - '.+'
   {% endraw %}
+# process_exporter_process_names: |
+#   {% raw %}
+#     - name: "{{.Username}}"
+#       user:
+#         - 'xfb.+'
+#   {% endraw %}

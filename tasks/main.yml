@@ -13,6 +13,9 @@
   delegate_to: localhost
 
 - name: Create target directory
+  become: yes
+  # become_user: root
+  # become_method: su
   file:
     path: "{{process_exporter_config_dir}}"
     state: directory
@@ -51,15 +54,16 @@
   template:
     src: process_exporter.init.d.j2
     dest: /etc/init.d/process_exporter
-    owner: root
-    group: root
-    mode: 0644
-  notify: restart process_exporter
-  when: ansible_service_mgr == "init"
+    #dest: /tmp/process_exporter_init_d
+    # owner: root
+    # group: root
+    mode: 0755
+  # notify: restart process_exporter
+  when: ansible_service_mgr == "init" or ansible_service_mgr == "upstart"
 
-- name: make sure process_exporter is started
-  service:
-    # must support all  init systems including SysV and systemd
-      name: process_exporter
-      state: started
-      enabled: yes
+# - name: make sure process_exporter is started
+#   service:
+#     # must support all  init systems including SysV and systemd
+#       name: process_exporter
+#       state: started
+#       enabled: yes
